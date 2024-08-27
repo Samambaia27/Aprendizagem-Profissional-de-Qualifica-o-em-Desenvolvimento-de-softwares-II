@@ -1,0 +1,112 @@
+create database autovialocadora;
+use autovialocadora;
+
+/*01. Criando Banco de Dados - Arquivos*/
+/*Criando Tabelas*/
+create table Marcas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL UNIQUE
+);
+create table Modelos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    id_marca INT,
+    FOREIGN KEY  (id_marca) REFERENCES Marcas(id)
+);
+create table Veiculos (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    placa VARCHAR(10) NOT NULL UNIQUE,
+    ano INT NOT NULL,
+    cor VARCHAR(20),
+    id_modelo INT,
+    status ENUM('Disponível', 'Locado', 'Em Manutenção') DEFAULT 'Disponível',
+    FOREIGN KEY (id_modelo) REFERENCES Modelos(id)
+);
+
+CREATE TABLE Clientes(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cpf Varchar(14) NOT NULL UNIQUE,
+    telefone VARCHAR(15),
+    endereco VARCHAR(255)
+);
+create table Contratos (
+	id INT auto_increment primary key,
+    id_clientes INT,
+    id_veiculos INT,
+    data_inicio DATE NOT NULL, 
+    data_fim DATE, 
+    valor_total DECIMAL(10, 2),
+    FOREIGN KEY (id_clientes) REFERENCES Clientes(id),
+    FOREIGN KEY (id_veiculos) REFERENCES Veiculos(id)
+);
+create table Pagamentos (
+    id INT auto_increment PRIMARY KEY,
+    id_contrato INT,
+    data_pagamento DATE NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    metodo ENUM('Dinheiro', 'Cartão de Crédito', 'Transferência')
+);
+
+INSERT INTO Marcas (nome) VALUES 
+('Chevrolet'),
+('hyundai'),
+('audi'),
+('volkswagen'),
+('mercedes-benz'),
+('fiat'),
+('renault'),
+('kia'),
+('jeep'),
+('land rover'),
+('subaru'),
+('peugeot'),
+('chrysler'),
+('lexus'),
+('mazda'),
+('mitsubishi'),
+('suzuki'),
+('porsche'),
+('jaguar'),
+('infiniti'),
+('alfa romeo'),
+('buick'),
+('cadillac'),
+('lincol'),
+('GMC');
+
+SET FOREIGN_KEY_CHECKS=1; 
+INSERT INTO Veiculos (placa, ano, cor, id_modelo) VALUES
+('ABC1235', 2021, 'PRATA', 1),
+('XYZ5679', 2022, 'CINZA', 2),
+('LMN9102', 2020, 'PRETO', 3),
+('DEF3456', 2021, 'BRANCO', 4),
+('GHI7890', 2022, 'VERMELHO', 5),
+('JKL0123', 2019, 'AZUL', 6),
+('MNO4567', 2021, 'AMARELO', 7),
+('PQR8901', 2020, 'VERDE', 8),
+('STU2345', 2022, 'MARROM', 9),
+('VWX6789', 2021, 'LARANJA', 10),
+('YZA0123', 2019, 'ROXO', 11),
+('BCD3456', 2022, 'BEGE', 12),
+('EFG7890', 2021, 'DOURADO', 13),
+('HIJ0123', 2020, 'PRATA', 14),
+('KLM4567', 2022, 'CINZA', 15),
+('NOP8901', 2021, 'BRANCO', 16),
+('QRS2345', 2019, 'PRETO', 17),
+('TUV6789', 2022, 'VERMELHO', 18),
+('WXY0123', 2021, 'AZUL', 19),
+('ZAB3456', 2020, 'AMARELO', 20),
+('CDE7890', 2022, 'VERDE', 21),
+('FGH01232', 2021, 'MARROM', 22),
+('IJK4567', 2019, 'LARANJA', 23),
+('LMN8901', 2022, 'ROXO', 24),
+('OPQ2345', 2021, 'BEGE', 25),
+('RST6789', 2020, 'DOURADO', 26),
+('UVW0123', 2022, 'PRATA', 27),
+('XYZ3456', 2021, 'CINZA', 28),
+('ABC7890', 2020, 'BRANCO', 29),
+('DEF0123', 2022, 'PRETO', 30);
+
+
+
